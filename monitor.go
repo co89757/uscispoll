@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"time"
@@ -13,6 +14,10 @@ type CheckResult struct {
 	CurrentStatus   *Status
 	LastStatusTitle string
 	TimeSinceChange time.Duration
+}
+
+func (result CheckResult) String() string {
+	return fmt.Sprintf("CaseNumber:%s\nChanged?:%v\nTimeSinceChange:%v\nNewStatus:%s\n", result.CurrentStatus.CaseNumber, result.Changed, result.TimeSinceChange/(24*time.Hour), result.CurrentStatus.Title)
 }
 
 func monitor(caseNumber string) (result CheckResult, err error) {
@@ -39,6 +44,7 @@ func monitor(caseNumber string) (result CheckResult, err error) {
 	lastStatus = bytes.TrimSpace(lastStatus)
 	lastStatusTitle := string(lastStatus)
 	if lastStatusTitle != curStatus.Title {
+		//status change detected. update log
 		curStatus.Save()
 		result.Changed = true
 		result.LastStatusTitle = lastStatusTitle

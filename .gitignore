@@ -1,7 +1,8 @@
-#executables 
-*.exe 
-#logs and text files 
-*.txt 
+#executables
+*.exe
+uscispoll
+#logs and text files
+*.txt
 *.log
-#vscode directory 
+#vscode directory
 .vscode/
