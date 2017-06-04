@@ -11,6 +11,7 @@ import (
 type CheckResult struct {
 	Changed         bool
 	CurrentStatus   *Status
+	LastStatusTitle string
 	TimeSinceChange time.Duration
 }
 
@@ -25,6 +26,7 @@ func monitor(caseNumber string) (result CheckResult, err error) {
 		result.Changed = false
 		result.CurrentStatus = curStatus
 		result.TimeSinceChange = time.Since(curStatus.StartDate)
+		result.LastStatusTitle = curStatus.Title
 		err = nil
 		return
 	}
@@ -39,10 +41,11 @@ func monitor(caseNumber string) (result CheckResult, err error) {
 	if lastStatusTitle != curStatus.Title {
 		curStatus.Save()
 		result.Changed = true
-
+		result.LastStatusTitle = lastStatusTitle
 	} else {
 		//no change of status
 		result.Changed = false
+		result.LastStatusTitle = curStatus.Title
 	}
 
 	result.CurrentStatus = curStatus

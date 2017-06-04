@@ -85,7 +85,7 @@ func pollStatus(caseNumber string) (status *Status, err error) {
 	}
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Fatalf("error in sending request. case number: %s", caseNumber)
+		log.Fatalf("error in sending request %v case number: %s", err, caseNumber)
 	}
 	defer resp.Body.Close()
 

@@ -1,0 +1,7 @@
+{
+    "smtpServerHost": "smtp.gmail.com",
+    "smtpServerPort": 587,
+    "senderEmail": "",
+    "password": "",
+    "receiverEmails": [""]
+}

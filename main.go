@@ -2,15 +2,25 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"os"
 )
 
 func main() {
-	status, err := pollStatus("YSC1790016391")
+	f, _ := os.Open("emailcfg.json")
+	mailer, _ := NewMailer(f)
+	err := mailer.SendEmail("helloworld", "Hello, that is great!")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Print(err)
+		return
 	}
-	status.Save()
-	fmt.Println(status)
+	// var caseNum string
+	// flag.StringVar(&caseNum, "case", "", "USCIS receipt number to poll")
+	// flag.Parse()
+	// status, err := pollStatus(caseNum)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// status.Save()
+	// fmt.Println(status)
 
 }
