@@ -1,0 +1,6 @@
+#executables 
+*.exe 
+#logs and text files 
+*.txt 
+#vscode directory 
+.vscode/
