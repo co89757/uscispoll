@@ -4,16 +4,31 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 )
 
+func onChange(checkResult CheckResult) (err error) {
+	if !checkResult.Changed {
+		return nil
+	}
+	//send mail on status change
+	cfg, _ := os.Open("emailcfg.json")
+	mailer, _ := NewMailer(cfg)
+	subject := "Your USCIS Case Status Changed"
+	name := "USCIS Case Status Poller"
+	body := fmt.Sprintf("Your USCIS Case [%s] has a status update .... \nNewStatus:%s\nDetails:%s\nLastStatus:%s\n",
+		checkResult.CurrentStatus.CaseNumber,
+		checkResult.CurrentStatus.Title,
+		checkResult.CurrentStatus.Details,
+		checkResult.LastStatusTitle)
+	err = mailer.SendEmail(subject, name, body)
+	if err != nil {
+		return
+	}
+	return nil
+}
+
 func main() {
-	// f, _ := os.Open("emailcfg.json")
-	// mailer, _ := NewMailer(f)
-	// err := mailer.SendEmail("helloworld", "Hello, that is great!")
-	// if err != nil {
-	// 	fmt.Print(err)
-	// 	return
-	// }
 	var caseNum string
 	flag.StringVar(&caseNum, "case", "", "USCIS receipt number to poll")
 	flag.Parse()
@@ -25,6 +40,10 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error: %s", err.Error())
 	}
-	fmt.Print(checkResult)
 
+	err = onChange(checkResult)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Print(checkResult)
 }
