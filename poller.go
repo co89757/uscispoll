@@ -16,7 +16,7 @@ import (
 
 const (
 	targetURL          = "https://egov.uscis.gov/casestatus/mycasestatus.do"
-	caseFilenamePreifx = "LAST_STATUS"
+	caseFilenamePrefix = "LAST_STATUS"
 )
 
 var headers = map[string]string{
@@ -43,7 +43,7 @@ func (s *Status) String() string {
 }
 
 func caseFileName(caseNumber string) string {
-	return fmt.Sprintf("%s_%s.txt", caseFilenamePreifx, caseNumber)
+	return fmt.Sprintf("%s_%s.txt", caseFilenamePrefix, caseNumber)
 }
 
 //Save status and persist it to file for future lookup

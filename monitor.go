@@ -17,7 +17,7 @@ type CheckResult struct {
 }
 
 func (result CheckResult) String() string {
-	return fmt.Sprintf("CaseNumber:%s\nChanged?:%v\nTimeSinceChange:%v\nNewStatus:%s\n", result.CurrentStatus.CaseNumber, result.Changed, result.TimeSinceChange/(24*time.Hour), result.CurrentStatus.Title)
+	return fmt.Sprintf("CaseNumber:%s\nChanged?:%v\nTimeSinceChange:%d Days\nNewStatus:%s\n", result.CurrentStatus.CaseNumber, result.Changed, result.TimeSinceChange/(24*time.Hour), result.CurrentStatus.Title)
 }
 
 func monitor(caseNumber string) (result CheckResult, err error) {
@@ -32,6 +32,7 @@ func monitor(caseNumber string) (result CheckResult, err error) {
 		result.CurrentStatus = curStatus
 		result.TimeSinceChange = time.Since(curStatus.StartDate)
 		result.LastStatusTitle = curStatus.Title
+		curStatus.Save()
 		err = nil
 		return
 	}
