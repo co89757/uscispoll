@@ -40,10 +40,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error: %s", err.Error())
 	}
-
+	log.Print(checkResult)
 	err = onChange(checkResult)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Print(checkResult)
 }
