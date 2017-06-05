@@ -105,16 +105,4 @@ func (mailer Mailer) SendEmail(subject, senderName, body string) (err error) {
 		return
 	}
 	return nil
-	// m := gomail.NewMessage()
-	// m.SetHeader("From", mailer.SenderEmail)
-	// m.SetHeader("To", mailer.ReceiverEmails...)
-	// m.SetHeader("Subject", subject)
-	// m.SetBody("text/html", body)
-
-	// dialer := gomail.NewDialer(mailer.SMTPServerHost, mailer.SMTPServerPort, mailer.SenderEmail, mailer.Password)
-	// if err := dialer.DialAndSend(m); err != nil {
-	// 	log.Printf("Error sending email: %v", err)
-	// 	return err
-	// }
-	// return nil
 }
