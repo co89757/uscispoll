@@ -13,7 +13,10 @@ Prebuilt binary is available via
 ## Usage
 It's a command-line utility that takes a single argument: your receipt number (aka. case number) and a configuration regarding email notice setup
 ### Configure Email settings
-All the email related settings are in `emailcfg.json` file, populate it with your own credentials for email sending.
+All the email related settings are in `emailcfg.json` file, populate it with your own credentials for email sending. Configuration options include email sender settings and receiver emails.
+
+__NOTE__
+ if you are using Gmail/Outlook to send mail, you may need to turn on "allow less secure apps" option on your Gmail/Outlook account. [more](https://support.google.com/accounts/answer/6010255?hl=en)
 ### Example usage
 After you fetch it with go get, the binary is in your `$GOPATH/bin` directory
 ```
